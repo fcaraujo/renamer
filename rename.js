@@ -32,11 +32,6 @@ const argv = yargs
     .alias('help', 'h')
     .argv;
 
-// console.log(argv)
-// const originFolder = 'c:/dev/test';
-// const startFrom = 2;
-// const destinationFolder = 'c:/dev/test-dest';
-
 const copyFrom = async (sourcePath, destinationPath, countFrom, prefix) => {
     const url = new URL(`file://${sourcePath}`)
     const files = await fs.promises.readdir(url);
@@ -51,11 +46,14 @@ const copyFrom = async (sourcePath, destinationPath, countFrom, prefix) => {
         const source = `${sourcePath}/${file}`;
         const destination = `${destinationPath}/${result}`;
 
-        // await fs.copyFile(source, destination, (err) => {
-        //     if (err) throw err;
-        // });
+        fs.copyFileSync(source, destination, (err) => {
+            if (err) {
+                console.error(`Failed to copy ${source}`);
+                throw err;
+            }
+        });
 
-        console.log(`> ${source} --> ${destination}`);
+        console.log(`> ${file} --> ${result}`);
     }
 }
 
@@ -65,6 +63,6 @@ if (argv._.includes('episodes')) {
     const countFrom = argv.counter;
     const prefix = argv.prefix;
 
-    console.log('Renaming episodes:')
+    console.log(`Copying episodes from ${sourceFolder} to ${destinationFolder}:`)
     copyFrom(sourceFolder, destinationFolder, countFrom, prefix).catch(console.error);
 }
