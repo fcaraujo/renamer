@@ -33,8 +33,8 @@ const argv = yargs
     .argv;
 
 const copyFrom = async (sourcePath, destinationPath, countFrom, prefix) => {
-    const url = new URL(`file://${sourcePath}`)
-    const files = await fs.promises.readdir(url);
+//     const url = new URL(`file://${sourcePath}`)
+    const files = await fs.promises.readdir(sourcePath);
     const orderedFiles = files.sort();
 
     let counter = countFrom;
