@@ -44,3 +44,8 @@ Simplest case for the first season:
 Optionally you can change the prefix passing `-p S02E` for instance; and the initial counter passing `-i 2`:
 
 `node rename episodes -s ../../media/animes/S02/rename/ -d ../../media/animes/S02/ -p S02E -i 5`
+
+
+# TODO:
+- Add parameter to remove original files
+- Add logging in the destination folder
