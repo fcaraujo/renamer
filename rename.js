@@ -9,7 +9,7 @@ const path = require('path');
 const yargs = require('yargs');
 
 // Console colors
-const titleColor = colors.bgGreen.black.bold;
+const titleColor = colors.bgGreen.black;
 const commandsColor = colors.green;
 const errorColor = colors.red.bold;
 
