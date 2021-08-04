@@ -8,6 +8,11 @@ const fs = require('fs');
 const path = require('path');
 const yargs = require('yargs');
 
+// Console colors
+const titleColor = colors.bgGreen.black.underline;
+const commandsColor = colors.green;
+const errorColor = colors.red.bold;
+
 const argv = yargs
   .usage('Usage: $0 <command>')
   .example('$0 episodes -s source -d destination -i 2 -p prefix -dry')
@@ -66,13 +71,13 @@ const executeAsync = async (
     if (!isDryRun) {
       fs.copyFileSync(source, destination, (err) => {
         if (err) {
-          console.error(`Failed to copy ${source}`);
+          console.error(errorColor(`Failed to copy ${source}`));
           throw err;
         }
       });
     }
 
-    console.log(`> ${file} --> ${result}`);
+    console.log(commandsColor(`> ${file} --> ${result}`));
   }
 };
 
@@ -85,10 +90,9 @@ if (argv._.includes('episodes')) {
 
   // Console command message
   const commandTitle = (isDryRun) ? 'Dry running' : 'Copying episodes';
-  const titleColor = colors.bgBlue.black;
 
   console.log(
-    titleColor(`${commandTitle} from ${sourceFolder} to ${destinationFolder}:`)
+    titleColor(` ${commandTitle} from "${sourceFolder}" to "${destinationFolder}": `)
   );
 
   // Execute copy action
