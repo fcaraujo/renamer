@@ -1,5 +1,7 @@
 'use strict';
 
+const fs = require('fs');
+
 const FSUtil = require('../../src/FSUtil');
 
 describe('FSUtil', () => {
@@ -12,11 +14,16 @@ describe('FSUtil', () => {
 
   it('should return 0 files for an empty folder', async () => {
     // Arrange
-    const emptyFolder = `${currentPath}/empty`;
+    const emptyDir = `${currentPath}/empty`;
     const expected = 0;
+    
+    const hasDirectory = fs.existsSync(emptyDir);
+    if (!hasDirectory) {
+      fs.mkdirSync(emptyDir);
+    }
 
     // Act
-    const files = await fsUtil.getSorteFiles(emptyFolder);
+    const files = await fsUtil.getSorteFiles(emptyDir);
 
     // Assert
     expect(files.length).toBe(expected);
