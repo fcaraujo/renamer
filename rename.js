@@ -6,63 +6,74 @@ const path = require('path');
 const yargs = require('yargs');
 
 const argv = yargs
-    .usage('Usage: $0 <command>')
-    .example('$0 episodes -s source -d destination -i 2 -p prefix')
-    .command('episodes', 'Rename episodes! :O', {
-        source: {
-            alias: 's',
-            type: 'string',
-        },
-        destination: {
-            alias: 'd',
-            type: 'string',
-        },
-        counter: {
-            alias: 'c',
-            type: 'number',
-            default: 1,
-        },
-        prefix: {
-            alias: 'p',
-            type: 'string',
-            default: 'S01E',
-        }
-    })
-    .help()
-    .alias('help', 'h')
-    .argv;
+  .usage('Usage: $0 <command>')
+  .example('$0 episodes -s source -d destination -i 2 -p prefix -dry')
+  .command('episodes', 'Rename episodes! :O', {
+    source: {
+      alias: 's',
+      type: 'string',
+    },
+    destination: {
+      alias: 'd',
+      type: 'string',
+    },
+    counter: {
+      alias: 'c',
+      type: 'number',
+      default: 1,
+    },
+    prefix: {
+      alias: 'p',
+      type: 'string',
+      default: 'S01E',
+    },
+    // TODO: implement
+    dryRun: {
+      alias: 'dry',
+    },
+  })
+  .help()
+  .alias('help', 'h').argv;
 
 const copyFrom = async (sourcePath, destinationPath, countFrom, prefix) => {
-//     const url = new URL(`file://${sourcePath}`)
-    const files = await fs.promises.readdir(sourcePath);
-    const orderedFiles = files.sort();
+  //     const url = new URL(`file://${sourcePath}`)
+  const files = await fs.promises.readdir(sourcePath);
+  const orderedFiles = files.sort();
 
-    let counter = countFrom;
-    for (const file of orderedFiles) {
-        const extension = path.extname(file)
-        const number = counter < 10 ? `0${counter++}` : counter++;
-        const result = `${prefix}${number}${extension}`;
+  let counter = countFrom;
+  for (const file of orderedFiles) {
+    const extension = path.extname(file);
+    const number = counter < 10 ? `0${counter++}` : counter++;
+    const result = `${prefix}${number}${extension}`;
 
-        const source = `${sourcePath}/${file}`;
-        const destination = `${destinationPath}/${result}`;
+    const source = `${sourcePath}/${file}`;
+    const destination = `${destinationPath}/${result}`;
 
-        fs.copyFileSync(source, destination, (err) => {
-            if (err) {
-                console.error(`Failed to copy ${source}`);
-                throw err;
-            }
-        });
+    fs.copyFileSync(source, destination, (err) => {
+      if (err) {
+        console.error(`Failed to copy ${source}`);
+        throw err;
+      }
+    });
 
-        console.log(`> ${file} --> ${result}`);
-    }
-}
+    console.log(`> ${file} --> ${result}`);
+  }
+};
 
 if (argv._.includes('episodes')) {
-    const sourceFolder = argv.source;
-    const destinationFolder = argv.destination;
-    const countFrom = argv.counter;
-    const prefix = argv.prefix;
+  const sourceFolder = argv.source;
+  const destinationFolder = argv.destination;
+  const countFrom = argv.counter;
+  const prefix = argv.prefix;
 
-    console.log(`Copying episodes from ${sourceFolder} to ${destinationFolder}:`)
-    copyFrom(sourceFolder, destinationFolder, countFrom, prefix).catch(console.error);
+  console.log(`Copying episodes from ${sourceFolder} to ${destinationFolder}:`);
+  
+  const copyAction = copyFrom(
+    sourceFolder,
+    destinationFolder,
+    countFrom,
+    prefix
+  );
+
+  copyAction.catch(console.error);
 }
