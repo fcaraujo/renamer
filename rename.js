@@ -85,7 +85,7 @@ if (argv._.includes('episodes')) {
 
   // Console command message
   const commandTitle = (isDryRun) ? 'Dry running' : 'Copying episodes';
-  const titleColor = colors.bgBrightCyan.black;
+  const titleColor = colors.bgBlue.black;
 
   console.log(
     titleColor(`${commandTitle} from ${sourceFolder} to ${destinationFolder}:`)

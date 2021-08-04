@@ -10,29 +10,32 @@ $ node rename help
 Usage: rename <command>
 
 Commands:
-  rename episodes  Rename episodes! :O
+  rename episodes  It renames episodes! :)
 
 Options:
   --version   Show version number                                      [boolean]
   --help, -h  Show help                                                [boolean]
 
 Examples:
-  rename episodes -s source -d destination -i 2 -p prefix
+  rename episodes -s source -d destination -i 2 -p prefix -dry
 ```
 
 ```js
 $ node rename episodes help
 rename episodes
 
-Rename episodes! :O
+
+It renames episodes! :)
 
 Options:
   --version          Show version number                               [boolean]
   --help, -h         Show help                                         [boolean]
-  --source, -s                                                          [string]
-  --destination, -d                                                     [string]
-  --counter, -c                                            [number] [default: 1]
-  --prefix, -p                                        [string] [default: "S01E"]
+  --source, -s       Source directory which contains the files          [string]
+  --destination, -d  Destination directory which files will be copied   [string]
+  --counter, -c      Counter to start copying              [number] [default: 1]
+  --prefix, -p       Prefix to specify the season     [string] [default: "S01E"]
+  --dryRun, --dry    Run through without making any changes
+                                                      [boolean] [default: false]
 
 ```
 
