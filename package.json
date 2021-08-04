@@ -12,6 +12,7 @@
     "yargs": "^15.4.1"
   },
   "devDependencies": {
+    "colors": "^1.4.0",
     "jasmine": "^3.8.0"
   }
 }

@@ -3,14 +3,3 @@ Yu Yu Hakusho 103_720p.mp4
 Yu Yu Hakusho 11_720p.mp4
 Yu Yu Hakusho 12_720p.mp4
 Yu Yu Hakusho 13_720p.mp4
-
-
-// const sourceFolder = __dirname + '/test/source';
-// const destinationFolder = __dirname + '/test/dest';
-// const countFrom = 100;
-// const prefix = 'S01E';
-
-// console.log(`Copying episodes from ${sourceFolder} to ${destinationFolder}:`);
-// copyFrom(sourceFolder, destinationFolder, countFrom, prefix).catch(
-//   console.error
-// );

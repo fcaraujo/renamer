@@ -20,6 +20,21 @@
       "name": "Debug current file",
       "skipFiles": ["<node_internals>/**"],
       "program": "${file}"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Run rename locally",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}/rename",
+      "args": [
+        "episodes", 
+        "-s", "${workspaceFolder}/test/source",
+        "-d", "${workspaceFolder}/test/dest",
+        "-c", "2",
+        "-p", "S02",
+        "--dry"
+      ]
     }
   ]
 }
